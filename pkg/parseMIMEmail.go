@@ -105,7 +105,7 @@ func WritePart(part *multipart.Part, filename string, path string) {
 	// Read the data for this MIME part
 	part_data, err := ioutil.ReadAll(part)
 	if err != nil {
-		log.Println("Error reading MIME part data -", err)
+		//log.Println("Error reading MIME part data -", err)
 		return
 	}
 	content_transfer_encoding := strings.ToUpper(part.Header.Get("Content-Transfer-Encoding"))
@@ -157,7 +157,6 @@ func (r *PopMail) ParsePart(mime_data io.Reader, boundary string, index int, pat
 			break
 		}
 		if err != nil {
-			fmt.Println("Error going through the MIME parts -", err)
 			break
 		}
 		//for key, value := range new_part.Header {
