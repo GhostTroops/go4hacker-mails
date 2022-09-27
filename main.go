@@ -12,7 +12,7 @@ import (
 
 func main() {
 	fmt.Println("How use?\n./popmails lists.txt xxxUser 50 pop3.xxx.com\n")
-	//os.Args = []string{"", "lists.txt", "voraporn", "50", "mail.xx.com"}
+	// os.Args = []string{"", "lists.txt", "xxx", "50", "mail.xx.com"}
 	Wg := sync.WaitGroup{}
 	if data, err := ioutil.ReadFile(os.Args[1]); nil != err {
 		log.Printf("read %s is error: %v\n", os.Args[1], err)

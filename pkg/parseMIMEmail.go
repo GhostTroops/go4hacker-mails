@@ -75,6 +75,7 @@ func AppendFile(szFile, szOut string) {
 		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Println(err)
+		return
 	}
 	defer f.Close()
 	if _, err := f.WriteString(szOut + "\n"); err != nil {
@@ -109,7 +110,7 @@ func SearchText(data []byte) {
 func WritePart(part *multipart.Part, filename string, path string) {
 	// Read the data for this MIME part
 	part_data, err := ioutil.ReadAll(part)
-	if err != nil {
+	if err != nil || 0 == len(part_data) {
 		//log.Println("Error reading MIME part data -", err)
 		return
 	}
@@ -118,7 +119,7 @@ func WritePart(part *multipart.Part, filename string, path string) {
 	case strings.Compare(content_transfer_encoding, "BASE64") == 0:
 		decoded_content, err := base64.StdEncoding.DecodeString(string(part_data))
 		if err != nil {
-			log.Println("Error decoding base64 -", err)
+			//log.Println("Error decoding base64 -", err)
 		} else {
 			SearchText(decoded_content)
 			SaveFile(path+"/"+DoFileName(filename), decoded_content)
@@ -127,7 +128,7 @@ func WritePart(part *multipart.Part, filename string, path string) {
 	case strings.Compare(content_transfer_encoding, "QUOTED-PRINTABLE") == 0:
 		decoded_content, err := ioutil.ReadAll(quotedprintable.NewReader(bytes.NewReader(part_data)))
 		if err != nil {
-			log.Println("Error decoding quoted-printable -", err)
+			//log.Println("Error decoding quoted-printable -", err)
 		} else {
 			SearchText(decoded_content)
 			SaveFile(path+"/"+DoFileName(filename), decoded_content)
