@@ -47,7 +47,12 @@ func BuildFileName(part *multipart.Part, radix string, index int) (filename stri
 			//} else {
 			radix = r02.ReplaceAllString(radix, "")
 			//}
-			s09 := mime_type[len(mime_type)-1]
+			var s09 string
+			if 0 == len(mime_type) {
+				s09 = ""
+			} else {
+				s09 = mime_type[len(mime_type)-1]
+			}
 			return fmt.Sprintf("%s-%d%s", radix, index, s09)
 		}
 	}
