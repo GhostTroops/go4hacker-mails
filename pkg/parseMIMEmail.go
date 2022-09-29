@@ -99,9 +99,9 @@ func (r *PopMail) SearchText(data []byte) {
 			if n > len(s) {
 				n = len(s)
 			}
-
-			AppendFile("SMResults.txt", r.User+"  "+s[j:n]+"\n===================\n")
-			fmt.Printf("found in: %s\n==========\n", s[j:n])
+			s001 := "[" + r.User + "]  " + s[j:n] + "\n===================\n"
+			AppendFile("SMResults.txt", s001)
+			fmt.Printf("found in: %s\n==========\n", s001)
 		}
 	}
 }
