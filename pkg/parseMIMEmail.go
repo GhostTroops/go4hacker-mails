@@ -83,7 +83,7 @@ func AppendFile(szFile, szOut string) {
 	}
 }
 
-func SearchText(data []byte) {
+func (r *PopMail) SearchText(data []byte) {
 	if 2 < len(os.Args) {
 		s := string(data)
 		s1 := os.Args[2]
@@ -100,14 +100,14 @@ func SearchText(data []byte) {
 				n = len(s)
 			}
 
-			AppendFile("SMResults.txt", s[j:n]+"\n===================\n")
+			AppendFile("SMResults.txt", r.User+"  "+s[j:n]+"\n===================\n")
 			fmt.Printf("found in: %s\n==========\n", s[j:n])
 		}
 	}
 }
 
 // WitePart decodes the data of MIME part and writes it to the file filename.
-func WritePart(part *multipart.Part, filename string, path string) {
+func (r *PopMail) WritePart(part *multipart.Part, filename string, path string) {
 	// Read the data for this MIME part
 	part_data, err := ioutil.ReadAll(part)
 	if err != nil || 0 == len(part_data) {
@@ -121,7 +121,7 @@ func WritePart(part *multipart.Part, filename string, path string) {
 		if err != nil {
 			//log.Println("Error decoding base64 -", err)
 		} else {
-			SearchText(decoded_content)
+			r.SearchText(decoded_content)
 			SaveFile(path+"/"+DoFileName(filename), decoded_content)
 		}
 
@@ -130,11 +130,11 @@ func WritePart(part *multipart.Part, filename string, path string) {
 		if err != nil {
 			//log.Println("Error decoding quoted-printable -", err)
 		} else {
-			SearchText(decoded_content)
+			r.SearchText(decoded_content)
 			SaveFile(path+"/"+DoFileName(filename), decoded_content)
 		}
 	default:
-		SearchText(part_data)
+		r.SearchText(part_data)
 		SaveFile(path+"/"+DoFileName(filename), part_data)
 	}
 }
@@ -174,7 +174,7 @@ func (r *PopMail) ParsePart(mime_data io.Reader, boundary string, index int, pat
 			r.ParsePart(new_part, params["boundary"], index+1, path)
 		} else {
 			filename := BuildFileName(new_part, boundary, 1)
-			WritePart(new_part, filename, path)
+			r.WritePart(new_part, filename, path)
 		}
 	}
 }
