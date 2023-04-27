@@ -20,8 +20,8 @@ popmails lists.txt password 50 pop3.seclover.com
 
 #### out results save to file:
 SMResults.txt
-```
-lists.txt
+
+#### lists.txt
 format: user[tab]pswd
 ```
 user1   pswd1
@@ -31,7 +31,6 @@ username1 pswd1
 username2 pswd2
 username3 pswd3
 ```
-
 
 
 ## 💖Star
