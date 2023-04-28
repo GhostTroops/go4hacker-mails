@@ -2,7 +2,8 @@
 
 # go4hacker-mails
 
-Bulk email collection and retrieval
+Bulk email collection and retrieval，Assist penetration and redness teams in searching for sensitive information in emails for multiple accounts, such as admin, VPN, and password information. All searches are completed in memory without landing, thus avoiding their own risks
+帮助渗透、红对团队在若干账号的邮件中搜索敏感信息，例如admin、vpn账号及密码信息，所有的搜索在内存中完成，不落地，从而规避自己的风险
 
 ## Usage
 searchText eg:
